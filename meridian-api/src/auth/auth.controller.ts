@@ -13,9 +13,9 @@ export class AuthController {
     @Post('/sign-in')
     @Throttle({ default: { limit: 5, ttl: 15000 } })
     @HttpCode(HttpStatus.OK)
-    @ApiOperation({ summary: 'User Sign-in' })
-    @ApiResponse({ status: 200, description: 'Successfully signed in' })
-    @ApiResponse({ status: 429, description: 'Too Many Requests - Limit 5 attempts per 15 seconds' })
+    @ApiOperation({ summary: 'Sign in with user credentials' })
+    @ApiResponse({ status: 200, description: 'Successfully authenticated, returns access token and refresh token' })
+    @ApiResponse({ status: 401, description: 'Unauthorized / Invalid credentials' })
     public async signIn(@Body() signInDto:SignInDto) {
         return this.authService.SignIn(signInDto)
 
@@ -27,6 +27,10 @@ export class AuthController {
     @ApiOperation({ summary: 'Refresh Auth Token' })
     @ApiResponse({ status: 200, description: 'Successfully refreshed token' })
     @ApiResponse({ status: 429, description: 'Too Many Requests - Limit 10 attempts per minute' })
+    @Get('/refresh-token')
+    @ApiOperation({ summary: 'Refresh active JWT access tokens' })
+    @ApiResponse({ status: 200, description: 'Successfully generated new tokens' })
+    @ApiResponse({ status: 401, description: 'Unauthorized / Invalid refresh token' })
     public refreshToken(@Body() refreshTokenDto:RefreshTokenDto ) {
         return this.authService.RefreshToken(refreshTokenDto)
 
