@@ -10,9 +10,8 @@ import jwtConfig from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 import { GenerateTokenProvider } from './providers/token.provider';
 import { RefreshTokenProvider } from './providers/refreshToken.provider';
-import { RolesGuard } from './guard/roles/roles.guard';
-
-
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RefreshToken } from './entities/refresh-token.entity';
 
 @Module({
   imports: [
