@@ -26,7 +26,6 @@ import { UploadModule } from './upload/upload.module';
 import { HealthModule } from './health/health.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
-
 @Module({
   imports: [
     /**
@@ -78,10 +77,8 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
           username: config.get<string>('POSTGRES_USER'),
           password: config.get<string>('POSTGRES_PASSWORD'),
           database: config.get<string>('POSTGRES_DB'),
-          synchronize:
-            config.get<string>('POSTGRES_SYNC') === 'true',
-          autoLoadEntities:
-            config.get<string>('POSTGRES_LOAD') === 'true',
+          synchronize: config.get<string>('POSTGRES_SYNC') === 'true',
+          autoLoadEntities: config.get<string>('POSTGRES_LOAD') === 'true',
         };
       },
     }),
